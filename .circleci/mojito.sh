@@ -11,7 +11,7 @@ KERNEL_DIR="$(pwd)"
 ##----------------------------------------------------------##
 # Device Name and Model
 MODEL=Xiaomi
-DEVICE=neternels
+DEVICE=mojito
 
 # Kernel Version Code
 #VERSION=
@@ -24,9 +24,9 @@ DISABLE_LTO=1
 THIN_LTO=0
 
 # Files
-IMAGE=$(pwd)/out/arch/arm64/boot/Image
-DTBO=$(pwd)/out/arch/arm64/boot/dtbo.img
-DTB=$(pwd)/out/arch/arm64/boot/dts/qcom/sm6150.dtb
+IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz
+#DTBO=$(pwd)/out/arch/arm64/boot/dtbo.img
+#DTB=$(pwd)/out/arch/arm64/boot/dts/qcom/sm6150.dtb
 
 # Verbose Build
 VERBOSE=0
@@ -147,7 +147,7 @@ function cloneTC() {
 	
 	
     # Clone AnyKernel
-    git clone --depth=1 https://github.com/neternels/anykernel3 -b sunny AnyKernel3
+    #git clone --depth=1 https://github.com/neternels/anykernel3 -b sunny AnyKernel3
 
 	}
 
@@ -257,7 +257,7 @@ START=$(date +"%s")
 	       CC=clang \
 	       CROSS_COMPILE=aarch64-linux-gnu- \
 	       CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
-	       LD=${LINKER} \
+	       #LD=${LINKER} \
 	       #LLVM=1 \
 	       #LLVM_IAS=1 \
 	       #AR=llvm-ar \
@@ -395,20 +395,20 @@ START=$(date +"%s")
 	fi
 	
 	echo "**** Verify Image.gz-dtb & dtbo.img ****"
-    ls $(pwd)/out/arch/arm64/boot/Image
-    ls $(pwd)/out/arch/arm64/boot/dtbo.img
-    ls $(pwd)/out/arch/arm64/boot/dts/qcom/sm6150.dtb
+    ls $(pwd)/out/arch/arm64/boot/Image.gz
+    #ls $(pwd)/out/arch/arm64/boot/dtbo.img
+    #ls $(pwd)/out/arch/arm64/boot/dts/qcom/sm6150.dtb
     
 }
 
 ##----------------------------------------------------------------##
 function zipping() {
 	# Copy Files To AnyKernel3 Zip
-	mkdir -p AnyKernel3/dtbs
+	#mkdir -p AnyKernel3/dtbs
 	cp $IMAGE AnyKernel3
-	cp $DTBO AnyKernel3
+	#cp $DTBO AnyKernel3
 	#find $DTB -name "*.dtb" -exec cat {} + > AnyKernel3/dtb
-	cat $DTB > AnyKernel3/dtb
+	#cat $DTB > AnyKernel3/dtb
 	
 	# Zipping and Push Kernel
 	cd AnyKernel3 || exit 1
