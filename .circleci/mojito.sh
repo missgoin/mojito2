@@ -48,7 +48,7 @@ FINAL_ZIP_ALIAS=Karenulmoji-${TANGGAL}.zip
 ##----------------------------------------------------------##
 # Specify compiler.
 
-COMPILER=proton
+COMPILER=evagcc
 
 ##----------------------------------------------------------##
 # Specify Linker
@@ -141,7 +141,7 @@ function cloneTC() {
     	curl -sL https://github.com/cyberknight777/gcc-arm/archive/refs/heads/master.tar.gz | tar -xzf -
         mv "${KERNEL_DIR}"/gcc-arm-master "${KERNEL_DIR}"/gcc32
       fi
-    export PATH="${KERNEL_DIR}"/gcc32/bin:"${KERNEL_DIR}"/gcc64/bin:/usr/bin:${PATH}
+    export PATH="${KERNEL_DIR}"/gcc32/bin:"${KERNEL_DIR}"/gcc64/bin:/usr/bin/:${PATH}
 	
 	fi
 	
