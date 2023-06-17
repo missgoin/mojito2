@@ -48,7 +48,7 @@ FINAL_ZIP_ALIAS=Karenulmoji-${TANGGAL}.zip
 ##----------------------------------------------------------##
 # Specify compiler.
 
-COMPILER=azure
+COMPILER=proton
 
 ##----------------------------------------------------------##
 # Specify Linker
