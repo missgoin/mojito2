@@ -76,7 +76,7 @@ echo -e "\nKernel compiled succesfully! Zipping up...\n"
 #exit 1
 #fi
 
-#git clone --depth=1 https://github.com/missgoin/AnyKernel3.git
+git clone --depth=1 https://github.com/missgoin/AnyKernel3.git
 #git clone --depth=1 https://github.com/missgoin/AnyKernel3.git
 
 cp out/arch/arm64/boot/Image.gz AnyKernel3
