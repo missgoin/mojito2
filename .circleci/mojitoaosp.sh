@@ -53,7 +53,7 @@ make O=out ARCH=arm64 $DEFCONFIG
 echo -e "\nStarting compilation...\n"
 make -j$(nproc --all) O=out ARCH=arm64 \
     CC=clang \
-    LD=ld.lld \
+    #LD=ld.lld \
     AR=llvm-ar \
     AS=llvm-as \
     NM=llvm-nm \
