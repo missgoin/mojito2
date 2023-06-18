@@ -24,9 +24,9 @@ DISABLE_LTO=1
 THIN_LTO=0
 
 # Files
-IMAGE=$(pwd)/out/arch/arm64/boot/Image
-DTBO=$(pwd)/out/arch/arm64/boot/dtbo.img
-DTB=$(pwd)/out/arch/arm64/boot/dts/qcom/sm6150.dtb
+IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz
+#DTBO=$(pwd)/out/arch/arm64/boot/dtbo.img
+#DTB=$(pwd)/out/arch/arm64/boot/dts/qcom/sm6150.dtb
 
 # Verbose Build
 VERBOSE=0
@@ -385,8 +385,8 @@ START=$(date +"%s")
 	
 	echo "**** Verify Image.gz-dtb & dtbo.img ****"
     ls $(pwd)/out/arch/arm64/boot/Image.gz
-    ls $(pwd)/out/arch/arm64/boot/dtbo.img
-    ls $(pwd)/out/arch/arm64/boot/dts/qcom/sm6150.dtb
+    #ls $(pwd)/out/arch/arm64/boot/dtbo.img
+    #ls $(pwd)/out/arch/arm64/boot/dts/qcom/sm6150.dtb
     
 }
 
@@ -395,9 +395,9 @@ function zipping() {
 	# Copy Files To AnyKernel3 Zip
 	#mkdir -p AnyKernel3/dtbs
 	cp $IMAGE AnyKernel3
-	cp $DTBO AnyKernel3
+	#cp $DTBO AnyKernel3
 	#find $DTB -name "*.dtb" -exec cat {} + > AnyKernel3/dtb
-	cat $DTB > AnyKernel3/dtb
+	#cat $DTB > AnyKernel3/dtb
 	
 	# Zipping and Push Kernel
 	cd AnyKernel3 || exit 1
