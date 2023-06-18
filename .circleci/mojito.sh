@@ -24,9 +24,9 @@ DISABLE_LTO=1
 THIN_LTO=0
 
 # Files
-IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz
-#DTBO=$(pwd)/out/arch/arm64/boot/dtbo.img
-#DTB=$(pwd)/out/arch/arm64/boot/dts/qcom/sm6150.dtb
+IMAGE=$(pwd)/out/arch/arm64/boot/Image
+DTBO=$(pwd)/out/arch/arm64/boot/dtbo.img
+DTB=$(pwd)/out/arch/arm64/boot/dts/qcom/sm6150.dtb
 
 # Verbose Build
 VERBOSE=0
@@ -48,11 +48,11 @@ FINAL_ZIP_ALIAS=Karenulmoji-${TANGGAL}.zip
 ##----------------------------------------------------------##
 # Specify compiler.
 
-COMPILER=aosp
+COMPILER=prot
 
 ##----------------------------------------------------------##
 # Specify Linker
-LINKER=ld.lld
+#LINKER=ld.lld
 ##----------------------------------------------------------##
 
 ##----------------------------------------------------------##
@@ -64,9 +64,9 @@ function cloneTC() {
 	git clone --depth=1 https://gitlab.com/ElectroPerf/atom-x-clang.git clang
 	PATH="${KERNEL_DIR}/clang/bin:$PATH"
     
-    elif [ $COMPILER = "trb" ];
+    elif [ $COMPILER = "prot" ];
     then
-    git clone --depth=1 https://gitlab.com/varunhardgamer/trb_clang.git clang
+    git clone --depth=1 https://gitlab.com/fiqri19102002/proton_clang-mirror.git clang
     PATH="${KERNEL_DIR}/clang/bin:$PATH"
     
     elif [ $COMPILER = "gf" ];
@@ -147,7 +147,7 @@ function cloneTC() {
 	
 	
     # Clone AnyKernel
-    #git clone --depth=1 https://github.com/neternels/anykernel3 -b sunny AnyKernel3
+    git clone --depth=1 https://github.com/missgoin/AnyKernel3.git
 
 	}
 
@@ -252,21 +252,10 @@ START=$(date +"%s")
 
 	if [ -d ${KERNEL_DIR}/clang ];
 	   then
-	       make -kj$(nproc --all) O=out \
-	       ARCH=arm64 \
-	       CC=clang \
-	       CROSS_COMPILE=aarch64-linux-gnu- \
-	       CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
-	       #LD=${LINKER} \
-	       #LLVM=1 \
-	       #LLVM_IAS=1 \
-	       #AR=llvm-ar \
-	       #NM=llvm-nm \
-	       #OBJCOPY=llvm-objcopy \
-	       #OBJDUMP=llvm-objdump \
-	       #STRIP=llvm-strip \
-	       #READELF=llvm-readelf \
-	       #OBJSIZE=llvm-size \
+	       make -j$(nproc --all) O=out \
+				CROSS_COMPILE=aarch64-linux-gnu- \
+				LLVM=1 \
+				LLVM_IAS=1 \
 	       V=$VERBOSE 2>&1 | tee error.log
 	       
 	elif [ -d ${KERNEL_DIR}/cosmic ];
@@ -396,8 +385,8 @@ START=$(date +"%s")
 	
 	echo "**** Verify Image.gz-dtb & dtbo.img ****"
     ls $(pwd)/out/arch/arm64/boot/Image.gz
-    #ls $(pwd)/out/arch/arm64/boot/dtbo.img
-    #ls $(pwd)/out/arch/arm64/boot/dts/qcom/sm6150.dtb
+    ls $(pwd)/out/arch/arm64/boot/dtbo.img
+    ls $(pwd)/out/arch/arm64/boot/dts/qcom/sm6150.dtb
     
 }
 
@@ -406,9 +395,9 @@ function zipping() {
 	# Copy Files To AnyKernel3 Zip
 	#mkdir -p AnyKernel3/dtbs
 	cp $IMAGE AnyKernel3
-	#cp $DTBO AnyKernel3
+	cp $DTBO AnyKernel3
 	#find $DTB -name "*.dtb" -exec cat {} + > AnyKernel3/dtb
-	#cat $DTB > AnyKernel3/dtb
+	cat $DTB > AnyKernel3/dtb
 	
 	# Zipping and Push Kernel
 	cd AnyKernel3 || exit 1
